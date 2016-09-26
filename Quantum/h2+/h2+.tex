@@ -1,0 +1,30 @@
+\documentclass[10pt,a4paper,final]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Aidan Macdonald}
+\title{$H_2^+$ Simulation}
+\begin{document}
+
+\maketitle
+
+\section{Equations}
+
+Hamiltonian for quantum mechanical electron and classical protons
+\begin{align*}
+\hat{H} = \frac{p_1^2 + p_2^2}{2 M_p} + \frac{\hat{P}_e^2}{2m_e} + \frac{k}{\| q_1 - q_2 \|} - \frac{k}{\| \hat{Q}_e - q_2 \|} - \frac{k}{\| \hat{Q}_e - q_2 \|}
+\end{align*}
+
+Let $ | \psi \rangle \triangleq | \psi_u \rangle + i| \psi_v \rangle $, then equations of motion are,
+
+\begin{align*}
+\dot{q}_1 &= p_1/M_p \\
+\dot{q}_2 &= p_2/M_p \\
+\dot{p}_1 &= \frac{-k(q_1 - q_2)}{\|q_1 - q_2\|^3} + \langle \psi | \frac{k(q_1 - \hat{Q}_e)}{\|q_1 - \hat{Q}_e\|^3} | \psi \rangle \\
+\dot{p}_2 &= \frac{-k(q_2 - q_1)}{\|q_2 - q_1\|^3} + \langle \psi | \frac{k(q_2 - \hat{Q}_e)}{\|q_2 - \hat{Q}_e\|^3} | \psi \rangle \\
+| \dot{\psi}_u \rangle &= \hat{H} | \psi_v \rangle \\
+| \dot{\psi}_v \rangle &= -\hat{H} | \psi_u \rangle \\
+\end{align*}
+
+\end{document}
