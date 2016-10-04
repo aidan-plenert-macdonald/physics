@@ -1,0 +1,9 @@
+#
+# Simple and Stupid Transistor Simulation
+#
+
+Basically a step potential with a hole in the middle.
+
+V(x, y) = V0*(|x| < width && |y| > height)
+
+Then launch the particle at the hole and see part reflect and part transmit.
