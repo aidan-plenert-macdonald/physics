@@ -1,0 +1,76 @@
+\documentclass[10pt,a4paper,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Aidan Macdonald}
+\title{Quantum Notes}
+\begin{document}
+
+\section{Pauli Matrices}
+
+\begin{align*}
+\sigma _{a}&={\begin{pmatrix}\delta _{a3}&\delta _{a1}-i\delta _{a2}\\\delta _{a1}+i\delta _{a2}&-\delta _{a3}\end{pmatrix}} \\
+[\sigma_a, \sigma_b] &= 2 i \varepsilon_{a b c}\,\sigma_c \, ,  \\
+\{\sigma_a, \sigma_b\} &= 2 \delta_{a b}\,I. \\
+\sigma _{a}\sigma _{b}&=i\varepsilon _{abc}\,\sigma _{c}+\delta _{ab}I \\
+(\vec{a} \cdot \vec{\sigma})(\vec{b} \cdot \vec{\sigma}) &= (\vec{a} \cdot \vec{b}) \, I + i ( \vec{a} \times \vec{b} )\cdot \vec{\sigma} \\
+e^{i a(\hat{n} \cdot \vec{\sigma})} &= I\cos{a} + i (\hat{n} \cdot \vec{\sigma}) \sin{a} \, \\
+\end{align*}
+
+\begin{align*}
+\hat{n} \cdot \vec{\sigma} |\pm_n \rangle &= \pm |\pm_n \rangle \\
+\hat{n} \cdot \vec{\sigma} e^{i \theta \hat{m} \cdot \vec{\sigma} }|\pm_z \rangle &= \pm e^{i \theta \hat{m} \cdot \vec{\sigma} } |\pm_z \rangle \\
+e^{-i \theta \hat{m} \cdot \vec{\sigma} } \hat{n} \cdot \vec{\sigma} e^{i \theta \hat{m} \cdot \vec{\sigma} } &= \sigma_z \\
+\hat{m} &= \hat{z} \times \hat{n}/\sin \theta \\
+\cos \theta &= \hat{n} \cdot \hat{z} 
+\end{align*}
+
+\section{Harmonic Oscillator}
+
+\begin{align*}
+E\psi (x) &= \left(-{\frac {\hbar ^{2}}{2m}}{\frac {d^{2}}{dx^{2}}}+{\frac {1}{2}}m\omega ^{2}x^{2}\right)\psi (x) \\
+x\ &=\ {\sqrt {\frac {\hbar }{m\omega }}}q \\
+E\psi (q) &= {\frac {\hbar \omega }{2}}\left(-{\frac {d^{2}}{dq^{2}}}+q^{2}\right)\psi (q)  \\
+p &= - i \frac{d}{dq} \\
+ [q, p] &= i \, \\
+ a &= \frac{1}{\sqrt{2}}(q + i p) = \frac{1}{\sqrt{2}}\left( q + \frac{d}{dq}\right) \\ 
+a^{\dagger } &={\frac {1}{\sqrt {2}}}(q-ip)={\frac {1}{\sqrt {2}}}\left(q-{\frac {d}{dq}}\right) \\
+[a,a^{\dagger }]& ={\frac {1}{2}}[q+ip,q-ip]=1 \\
+[\hat H, a ]  &= -\hbar \omega a. \\
+[{\hat {H}},a^{\dagger }] &= \hbar \omega \, a^\dagger . \\
+a\mid n\rangle &={\sqrt {n}}\ |n-1\rangle  \\ 
+a^{\dagger }\mid n\rangle &={\sqrt {n+1}}\mid n+1\rangle
+\end{align*}
+
+\section{Angular Momentum}
+
+\begin{align*}
+[L_{x},L_{y}]=i\hbar L_{z},\;\;[L_{y},L_{z}]=i\hbar L_{x},\;\;[L_{z},L_{x}]=i\hbar L_{y},
+\end{align*}
+
+\begin{align*}
+[L_{l},L_{m}]&=i\hbar \sum _{n=1}^{3}\varepsilon _{lmn}L_{n}, \\
+[L^{2},L_{x}]&=[L^{2},L_{y}]=[L^{2},L_{z}]=0~.\, \\
+\end{align*}
+
+\begin{align*}
+J_{+}&=J_{x}+iJ_{y},\quad  \\
+J_{-}&=J_{x}-iJ_{y},\quad  \\
+\left[J_{z},J_{\pm }\right]&=\pm \hbar J_{\pm }.\quad \\
+\left[J_{+},J_{-}\right]&=2\hbar J_{z}.\quad \\
+J_{z}J_{\pm }|j\,m\rangle &=\left(J_{\pm }J_{z}+\left[J_{z},J_{\pm }\right]\right)|j\,m\rangle \\&=\left(J_{\pm }J_{z}\pm \hbar J_{\pm }\right)|j\,m\rangle \\&=\hbar \left(m\pm 1\right)J_{\pm }|j\,m\rangle 
+\end{align*}
+
+\section{Integrals}
+
+\begin{align*}
+\int _{-\infty }^{\infty }e^{-ax^{2}+bx+c}\,dx={\sqrt {\frac {\pi }{a}}}\,e^{{\frac {b^{2}}{4a}}+c},
+\end{align*}
+
+\begin{align*}
+ax^{2}+bx+c\;&=\;a(x-h)^{2}+k,\quad {\text{where}}\quad \\
+h&=-{\frac {b}{2a}}\quad {\text{and}}\quad k=c-ah^{2}=c-{\frac {b^{2}}{4a}}.
+\end{align*}
+
+\end{document}
