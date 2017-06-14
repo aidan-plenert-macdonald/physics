@@ -1,0 +1,42 @@
+\documentclass[10pt,a4paper,final]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Aidan Macdonald}
+\title{Pauli Vector Construction}
+\begin{document}
+
+\maketitle
+
+\section{Derivation}
+
+We wish to construct a vector such that,
+
+\begin{align*}
+\hat{n} \cdot \vec{\sigma} |\pm_n \rangle = \pm |\pm_n \rangle 
+\end{align*}
+
+We can construct this by rotating $ |\pm_z \rangle $
+
+\begin{align*}
+\hat{n} \cdot \vec{\sigma} |\pm_n \rangle &= \pm |\pm_n \rangle \\
+\hat{n} \cdot \vec{\sigma} e^{i \theta \hat{m} \cdot \vec{\sigma} }|\pm_z \rangle &= \pm e^{i \theta \hat{m} \cdot \vec{\sigma} } |\pm_z \rangle \\
+e^{-i \theta \hat{m} \cdot \vec{\sigma} } \hat{n} \cdot \vec{\sigma} e^{i \theta \hat{m} \cdot \vec{\sigma} } &= \sigma_z
+\end{align*}
+
+By geometrical ansatz, let $ \hat{m} = \hat{z} \times \hat{n}/\sin \theta $. Thus,
+
+\begin{align*}
+\sigma_z &= e^{-i \theta \hat{m} \cdot \vec{\sigma} } \hat{n} \cdot \vec{\sigma} e^{i \theta \hat{m} \cdot \vec{\sigma} } \\
+	&= \left( \cos \frac{\theta}{2} - i \hat{m} \cdot \vec{\sigma} \sin \frac{\theta}{2} \right) \hat{n} \cdot \vec{\sigma} \left( \cos \frac{\theta}{2} + i \hat{m} \cdot \vec{\sigma} \sin \frac{\theta}{2} \right) \\
+	&= \hat{n} \cdot \vec{\sigma} \cos^2 \frac{\theta}{2} + i \left[ \hat{m} \cdot \vec{\sigma}, \hat{n} \cdot \vec{\sigma} \right] \sin \frac{\theta}{2} \cos \frac{\theta}{2} + (\hat{m} \cdot \vec{\sigma})\hat{n} \cdot \vec{\sigma}(\hat{m} \cdot \vec{\sigma}) \sin^2 \frac{\theta}{2} \\
+	&= \hat{n} \cdot \vec{\sigma} + i/2 \left[ \hat{m} \cdot \vec{\sigma}, \hat{n} \cdot \vec{\sigma} \right] \sin \theta + \hat{m} \cdot \vec{\sigma} \left[\hat{n} \cdot \vec{\sigma}, \hat{m} \cdot \vec{\sigma}\right] \sin^2 \frac{\theta}{2} \\
+	&= \hat{n} \cdot \vec{\sigma} - (\hat{m} \times \hat{n}) \cdot \vec{\sigma} \sin \theta + i 2 (\hat{m} \cdot \vec{\sigma}) (\hat{n} \times \hat{m}) \cdot \vec{\sigma} \sin^2 \frac{\theta}{2} \\
+	&= \hat{n} \cdot \vec{\sigma} + \hat{n} \times (\hat{z} \times \hat{n}) \cdot \vec{\sigma} + 2 (\hat{m} \times (\hat{m} \times \hat{n})) \cdot \vec{\sigma} \sin^2 \frac{\theta}{2} \\
+	&= \hat{n} \cdot \vec{\sigma} + (\hat{z} - \hat{n} \cos \theta)  \cdot \vec{\sigma} - 2 \hat{n} \cdot \vec{\sigma} \sin^2 \frac{\theta}{2} \\
+	&= \hat{n} \cdot \vec{\sigma} + (\hat{z} - \hat{n} \cos \theta)  \cdot \vec{\sigma} - \hat{n} \cdot \vec{\sigma} (1 - \cos \theta) \\
+	&= \hat{z} \cdot \vec{\sigma}
+\end{align*}
+
+\end{document}
