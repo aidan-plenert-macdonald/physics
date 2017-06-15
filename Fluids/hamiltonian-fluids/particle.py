@@ -28,7 +28,7 @@ def update(frame_number):
     P += -2*P*(1.0*(X < lower_bnds) + 1.0*(X > upper_bnds))
     scat.set_offsets(X)
 
-writer = FFMpegWriter(fps=60, bitrate=5000)
-animation = FuncAnimation(fig, update, interval=10)
+writer = FFMpegWriter(fps=15, bitrate=5000)
+animation = FuncAnimation(fig, update, interval=10, frames=5000)
 animation.save('particles.mp4', writer=writer, dpi=600)
 #plt.show()

@@ -1,0 +1,47 @@
+\documentclass[10pt,a4paper,final]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\author{Aidan Macdonald}
+\title{Ideal Gas Fluid}
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Simple background to a 2D fluid simulation.
+
+\section{Equations}
+
+From my formalism \href{https://physics.stackexchange.com/questions/335603/least-action-with-local-equilibrium}{Many Particle to Fluid}, I derive a computational form to the fluid equations. 
+
+\begin{align*}
+s &= \frac{k_B}{m} \log m \rho + \frac{3}{2m} k_B \log \frac{4 \pi m^2 U}{2 h^2} + \frac{5 k_B}{2m} \\
+U &= c \rho^{\gamma - 1} e^{\alpha s} = \left[\frac{h^{2} e^{- \frac{5}{3}}}{2 \pi m^{\frac{8}{3}}} \right] \rho^{\frac{1}{3}-1} e^{\frac{2 m}{3 k}s}\\
+S &= \int dt\ d^3a\ \rho_0 \left( \frac{1}{2} \dot{q}^2 - U \right)
+\end{align*}
+
+With [uniform density][5] (ie. $ \nabla \rho_0 = 0 $) and the Jacobian $ \mathcal{J} = \frac{d^3q}{d^3a} $,
+\begin{align*}
+\delta S &= \int dt\ d^3a\ \left[ \rho_0 \dot{q}_i \delta \dot{q}_i - \rho_0 \left( \frac{\partial U}{\partial \rho} \delta \rho + \frac{\partial U}{\partial s} \delta s \right) \right] \\
+  &= \int dt\ d^3a\ \left[ -\rho_0 \ddot{q}_i \delta q_i - \rho_0^2  \frac{\partial U}{\partial \rho} \frac{\partial \frac{1}{\mathcal{J}}}{\partial \frac{\partial q^k}{\partial a^j}} \delta \frac{\partial q^k}{\partial a^j} \right] \\
+  &= \int dt\ d^3a\ \left[ -\rho_0 \ddot{q}_k - \frac{\partial}{\partial a^j} \left( \rho^2 \frac{\partial U}{\partial \rho} \frac{\partial \mathcal{J}}{\partial \frac{\partial q^k}{\partial a^j}} \right) \right] \delta q_k \\
+\end{align*}
+which reproduces Morrison. More details shown [here][6].
+
+The Jacobian can be written out,
+\begin{align*}
+\mathcal{J}(a, t) &= \frac{1}{2} \sum_{i,j,k,\ell} \epsilon_{k, \ell} \epsilon_{i,j}  \frac{\partial q_k}{\partial a_i} \frac{\partial q_\ell}{\partial a_j} \\
+  &= \frac{\partial q_1}{\partial a_1} \frac{\partial q_2}{\partial a_2} - \frac{\partial q_1}{\partial a_2} \frac{\partial q_2}{\partial a_1} \\
+\frac{\partial \mathcal{J}}{\partial \frac{\partial q^k}{\partial a^j}} &= 
+\left[ \begin{matrix}
+ \frac{\partial q_2}{\partial a_2} & -\frac{\partial q_2}{\partial a_1} \\
+ -\frac{\partial q_1}{\partial a_2} & \frac{\partial q_1}{\partial a_1} \\
+\end{matrix} \right]_{kj}
+\end{align*}
+
+
+\end{document}
