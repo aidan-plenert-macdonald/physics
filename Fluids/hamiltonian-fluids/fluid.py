@@ -6,7 +6,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation, FFMpegWriter
 
-q = a = np.array(np.meshgrid(np.arange(-5, 5, 0.01), np.arange(-5, 5, 0.01)))
+upper_bnds =  np.array([[5, 5]])
+lower_bnds = -np.array([[5, 5]])
+
+q = a = np.array(np.meshgrid(np.arange(lower_bnds[0, 0],
+                                       upper_bnds[0, 0], 0.01),
+                             np.arange(lower_bnds[0, 1],
+                                       upper_bnds[0, 1], 0.01)))
 dq = np.zeros(q.shape)
 rho0 = 1.0*(np.abs(a[0, :, :]) < 0.5)*(np.abs(a[1, :, :]) < 0.5)
 s = np.ones(rho0.shape)
@@ -37,8 +43,7 @@ def dP(rho0, J, dJ):
     I set the constants in U(rho, s) to 1 by choice of units
     """
     P = np.einsum('xy,kjxy->kjxy',
-                  (1.0/3 - 1)*div(np.exp(s),
-                                  div(rho0, J)**(2 - 1.0/3)),
+                  (1.0/3 - 1)*np.exp(s)*div(rho0, J)**(1.0/3),
                   dJ)
     DP = (div(np.gradient(P[:, 0, :, :], axis=1),
               np.gradient(a[0, :, :], axis=1)) +
@@ -47,6 +52,8 @@ def dP(rho0, J, dJ):
     return DP
 
 fig, ax = plt.subplots()
+ax.set_xlim(1.2*lower_bnds[0, 0], 1.2*upper_bnds[0, 0])
+ax.set_ylim(1.2*lower_bnds[0, 1], 1.2*upper_bnds[0, 0])
 ax.contourf(a[0], a[1], rho0)
 
 def update(frame_number):
@@ -56,6 +63,8 @@ def update(frame_number):
     q += dt*dq
     rho = div(rho0, J) # Wrong!!
     ax.clear()
+    ax.set_xlim(1.2*lower_bnds[0, 0], 1.2*upper_bnds[0, 0])
+    ax.set_ylim(1.2*lower_bnds[0, 1], 1.2*upper_bnds[0, 0])
     ax.contourf(q[0], q[1], rho)
 
 animation = FuncAnimation(fig, update, interval=10,

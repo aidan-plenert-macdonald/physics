@@ -18,7 +18,7 @@ m = 1.0
 
 fig, ax = plt.subplots()
 ax.set_xlim(1.2*lower_bnds[0, 0], 1.2*upper_bnds[0, 0])
-ax.set_ylim(1.2*lower_bnds[0, 1], 1.2*upper_bnds[0, 0])
+ax.set_ylim(1.2*lower_bnds[0, 1], 1.2*upper_bnds[0, 1])
 
 scat = ax.scatter(X[:, 0], X[:, 1], s=np.pi, c='r', alpha=0.1)
 
