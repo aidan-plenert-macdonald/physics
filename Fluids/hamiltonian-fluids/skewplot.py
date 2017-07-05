@@ -14,7 +14,11 @@ R = np.sqrt(X**2 + Y**2)
 Theta = np.arctan2(Y, X) + 1.0e0*R
 X, Y = R*np.cos(Theta), R*np.sin(Theta)
 
-fig = plt.figure()
-ax = fig.gca(projection='3d')
-ax.plot_surface(X, Y, Z)
+## 3D
+#fig = plt.figure()
+#ax = fig.gca(projection='3d')
+#ax.plot_surface(X, Y, Z)
+
+fig, ax = plt.subplots()
+ax.contourf(X, Y, Z)
 plt.show()
