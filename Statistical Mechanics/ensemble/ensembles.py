@@ -1,3 +1,11 @@
+"""
+Simulations of various Ensembles
+
+See,
+Andersen, Hans C. "Molecular dynamics simulations at constant pressure and/or temperature." The Journal of chemical physics 72.4 (1980): 2384-2393.
+
+"""
+
 import numpy as np
 from itertools import islice
 
@@ -19,50 +27,27 @@ FreeParticle = Hamiltonian(lambda q, p: 0.5*np.sum(p**2),
                            lambda q, p: p,
                            lambda q, p: 0.0)
 
-class nVTEnsemble:
+class nPTEnsemble:
     def __init__(self, H):
         self.H = H
 
-    def generate(self, n, V, T):
-        bound = V**(1.0/3)
-        q = np.random.rand(n, 3)*bound
-        collisions = 0
+    def generate(self, n, P, T):
+        q, V = np.random.rand(n, 3), n**(1.0/3)
         while True:
             p = np.random.randn(n, 3)*np.sqrt(T/2.0)
             _q, _p = self.H.leapfrog(q, p, steps=np.random.randint(2, 5))
-            lout, hout = _q < 0, _q > 0
-            _q[lout], _q[hout] = -_q[lout], bound - _q[hout]
-            _p[lout], _p[hout] = -_p[lout], -_p[hout]
             if np.random.rand() < np.exp((self.H(q, p) - self.H(_q, _p))/T):
-                q, p, collisions = _q, _p, np.sum(1.0*np.logical_or(np.any(lout, axis=1), np.any(hout, axis=1)))
+                q, p = _q, _p
+            _V = V + 0.5
             yield q, p, collisions
 
-    def n(self, n, V, T):
-        return n
-    
-    def V(self, n, V, T):
+    def V(self, n, P, T):
         return V
 
-    def T(self, n, V, T):
-        return T
-
-    def P(self, n, V, T):
-        f, Z = 0, 0
-        gen = self.generate(n, V, T)
-        while True:
-            df, dZ = 0, 0
-            for q, p, coll in islice(gen, 100):
-                df += coll
-                dZ += 1
-            
-            if Z != 0 and ((f + df)/(Z + dZ) - f/Z)/(f/Z) < 1e-2:
-                return T * (f + df)/(Z + dZ)
-            f, Z = f+df, Z+dZ
-            
-    def S(self, n, V, T):
+    def S(self, n, P, T):
         pass
 
-    def mu(self, n, V, T):
+    def mu(self, n, P, T):
         pass
         
 
