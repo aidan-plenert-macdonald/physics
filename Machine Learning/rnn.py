@@ -1,7 +1,11 @@
 import numpy as np
 from scipy import sparse
 from scipy.sparse import linalg as s_linalg
-from itertools import izip
+
+try:
+    from itertools import izip as zip
+except:
+    pass
 
 class EchoStateNetwork:
     def __init__(self, **kwargs):
@@ -27,10 +31,10 @@ class EchoStateNetwork:
             self.W = sparse.rand(self.hidden_len, self.hidden_len, density=self.density)
             self.W = self.W*np.real(self.spec_rad/max(s_linalg.eigs(self.W)[0]))
         
-        if self.h is None:
+        if self.h is None or reset:
             self.h = np.random.randn(self.hidden_len, 1)
         
-        for i, (x, y) in enumerate(izip(X_gen, y_gen)):
+        for i, (x, y) in enumerate(zip(X_gen, y_gen)):
             x = np.hstack(([1], x)) 
             if self.U is None:
                 self.U = self.scale*sparse.rand(self.hidden_len, x.size, density=self.density) 
@@ -45,7 +49,10 @@ class EchoStateNetwork:
                 self.M -= self.learning_rate*self.g
                 self.g *= self.momentum
         
-    def predict(self, X_gen):
+    def predict(self, X_gen, reset=False):
+        if reset:
+            self.h = np.random.randn(self.hidden_len, 1)
+        
         for x in X_gen:
             x = np.hstack(([1], x)) 
             self.h = (1 - self.decay)*self.h + self.decay*np.tanh(self.W.dot(self.h) + self.U.dot(x.reshape(-1, 1)))
